@@ -1,6 +1,6 @@
-## Caesar Cipher
+# Caesar Cipher
 
-# This program will take a string inputted by the user, then either encrypt or decrypt it.
+## This program will take a string inputted by the user, then either encrypt or decrypt it.
 
 - The basic logic is present for the encryption side of things.
 - Decryption however has not been implemented just yet.
