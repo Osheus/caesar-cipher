@@ -1,8 +1,10 @@
 import random
 
 # ------------------------  FUNCTIONS ------------------------ 
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
 def rotate_dial(character):
-    alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+    
     new_character = ''
 
     if character == 'z':
@@ -17,6 +19,30 @@ def rotate_dial(character):
         new_character = alphabet[new_position]
     
     return new_character
+
+def on_dial_check(character):
+    on_dial = False
+    if character in alphabet:
+        on_dial = True
+    return on_dial
+
+def cipher_input():
+    verified_input = False
+    while not verified_input:
+        user_input = input("Enter message here:  ").lower()
+        test = []
+
+        for character in user_input:
+            check = on_dial_check(character)
+            test.append(check)
+        
+        if all(test):
+            verified_input = True
+        else:
+            print("Illegal character present.\nAre you just using characters from the alphabet?\n\n")
+    return user_input
+
+
 
 def disclaimer():
     message = '''
@@ -110,10 +136,19 @@ def acquire_key():
     generate_key = encr_key_branch()
     if generate_key:
         key = random.randint(1, 25)
+    
     elif not generate_key:
-        key = int(input("Please enter your key here:    "))
-    else:
-        print("If you're seeing this, something is wrong with the key.")
+        non_valid_key = True
+        while non_valid_key:
+            try:
+                key = int(input("Please enter your key here:    "))
+
+            # Defensive programming added to prevent a non integer from being added.
+            # Will repeat until one is entered.    
+            except ValueError:
+                print("\nProvided key must be an integer.")
+            else:
+                non_valid_key = False
     
     return key
 
@@ -143,8 +178,8 @@ def encr_space_branch():
         exit()
 
 def encryption():
-    plaintext = input("Enter message to be encrypted here:  ").lower()
-    ciphertext = plaintext
+    cleartext = cipher_input()
+    ciphertext = cleartext
     
     
     if not retain_spaces:
@@ -157,7 +192,8 @@ def encryption():
             midtext = midtext + new_character
             ciphertext = midtext
     
-    print(f"The original text was: {plaintext}")
+    print("\nEncryption Summary:")
+    print(f"The cleartext: {cleartext}")
     print(f"The ciphertext: {ciphertext}")
     print(f"Key: {key}")
 
