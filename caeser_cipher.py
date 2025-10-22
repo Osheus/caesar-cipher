@@ -1,7 +1,8 @@
 import random
 
 # ------------------------  FUNCTIONS ------------------------ 
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+ 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 def rotate_dial(character):
     
@@ -23,6 +24,8 @@ def rotate_dial(character):
 def on_dial_check(character):
     on_dial = False
     if character in alphabet:
+        on_dial = True
+    elif character == ' ':
         on_dial = True
     return on_dial
 
